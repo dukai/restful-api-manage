@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link href="./bower-lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="./bower-lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Hello World!</title>
+        <link href="./bower-lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+        <link href="./bower-lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="page-header">
+            <h1>Restful API Manage <small>A tool for restful api manage</small></h1>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">设置目录</button>
+
+            <button type="button" class="btn btn-success">设置基本信息</button>
+
+            <button type="button" class="btn btn-info">添加项目</button>
+
+        </div>
+        <div id="app">
+            {{ message }}
+        </div>
+        <script>
+            var Vue = require('vue');
+            new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello Vue.js!'
+                }
+            })
+        </script>
+    </body>
 </html>

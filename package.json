@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "dukai",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^1.0.21"
+  }
 }
