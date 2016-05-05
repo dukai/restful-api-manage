@@ -1,0 +1,21 @@
+{
+  "name": "restful-api-manage",
+  "description": "",
+  "main": "main.js",
+  "authors": [
+    "dukai"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dukai/restful-api-manage",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower-lib/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
