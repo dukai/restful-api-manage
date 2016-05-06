@@ -12,24 +12,61 @@
             <h1>Restful API Manage <small>A tool for restful api manage</small></h1>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary">设置目录</button>
+            <button type="button" class="btn btn-primary" @click="setDir">设置目录</button>
 
             <button type="button" class="btn btn-success">设置基本信息</button>
 
             <button type="button" class="btn btn-info">添加项目</button>
 
         </div>
+        <div class="project-info">
+            <ul>
+                <li><label>项目路径:</label> <strong>{{projectPath}}</strong></li>
+            </ul>
+        </div>
         <div id="app">
             {{ message }}
         </div>
         <script>
+
+            require('./node-lib/confrw.js');
+
             var Vue = require('vue');
             new Vue({
                 el: '#app',
                 data: {
                     message: 'Hello Vue.js!'
                 }
-            })
+            });
+
+
+            var projectInfo = new Vue({
+                el: '.project-info',
+                data: {
+                    projectPath: ''
+                }
+            });
+
+            new Vue({
+                el: '.btn-group',
+                methods: {
+                    setDir: function(){
+                        const dialog = require('electron').remote.dialog;
+                        var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]});
+                        if(path === undefined){
+                            return;
+                        }
+                        var configfile = path + require('path').sep + 'config.json';
+                        var data = {
+                            name: 'om api',
+                            author: 'dukai'
+                        };
+                        require('fs').writeFileSync(configfile, JSON.stringify(data, null, 4));
+
+                        projectInfo.projectPath = path;
+                    }
+                }
+            });
         </script>
     </body>
 </html>
