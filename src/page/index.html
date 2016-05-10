@@ -7,36 +7,78 @@
     <link href="../../bower-lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="../../bower-lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="../css/index.css" rel="stylesheet" />
+    <script src="../../bower-lib/jquery/dist/jquery.js"></script>
     <script src="http://localhost:1337/livereload.js"></script>
 </head>
 <body>
     <header class="page">
         <div class="logo"></div>
-        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-th-list"></i></button>
-        <nav>
-            <ul>
-                <li>菜单</li>
+        <div class="dropdown pull-right">
+            <button id="dLabel" class="menu btn btn-default" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="glyphicon glyphicon-th-list"></i></button>
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                <li><a href="#">创建项目</a></li>
+                <li><a href="#">打开项目</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">启动项目</a></li>
             </ul>
-        </nav>
+        </div>
     </header>
-    <div class="btn-group">
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 summary">
+                <strong>优金币管理系统：</strong> <span>project/path/to/filesystem</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="">
+                    <li class="active">
+                        <a href="#">OM</a></li>
+                        <ul>
+                            <li>
+                                <a href="#">用户体验数据</a>
+                            </li>
+                            <li>
+                                <a href="#">OM001</a>
+                            </li>
+                            <li>
+                                <a href="#">OM001</a>
+                            </li>
+                            <li>
+                                <a href="#">OM001</a>
+                            </li>
+                        </ul>
+                    <li>
+                    <a href="#">OM1</a>
+
+                    </li>
+                    <li><a href="#">OM2</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                HELLO WORLD
+            </div>
+        </div>
+    </div>
+    <div class="btn-group" style="display:none">
         <button type="button" class="btn btn-primary" @click="setDir">设置目录</button>
 
         <button id="showModal" @click="showModal=true" type="button" class="btn btn-success">设置基本信息</button>
-
-        <button type="button" class="btn btn-info">添加项目</button>
+            <button type="button" class="btn btn-info">添加项目</button>
 
         <modal :show.sync="showModal">
         <h3 slot="header">设置基本信息</h3>
         </modal>
     </div>
-    <div class="project-info">
+    <div class="project-info"style="display:none">
         <ul>
             <li><label>项目路径:</label> <strong>{{projectPath}}</strong></li>
         </ul>
     </div>
     <script>
+        window.jQuery = require('../../bower-lib/jquery/dist/jquery');
         require('../controller/index-controller');
     </script>
+    <script src="../../bower-lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
