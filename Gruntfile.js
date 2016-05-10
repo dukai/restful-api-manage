@@ -175,6 +175,12 @@ module.exports = function(grunt) {
                 options: {
                     nospawn: true
                 }
+            },
+            html: {
+                files: ['<%= config.webroot %>/page/**/*.html'],
+                options: {
+                    nospawn: true
+                }
             }
         },
         cacheBust: {
@@ -306,67 +312,11 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-cache-bust-alt');
     grunt.loadNpmTasks('grunt-replace');
-    grunt.loadNpmTasks('grunt-bust-requirejs-cache');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-inline-text');
     grunt.loadNpmTasks('grunt-express-server');
-
-    grunt.registerMultiTask('source_map', 'grub grunt-cache-bust.json and resource-map.json, parse and generate source map for java velocity', function() {
-        grunt.log.writeln('Currently running the "default" task.');
-        // grunt.log.writeln(JSON.stringify(this));
-
-        var options = mix({
-            dist: null,
-            java: null,
-            mergeFiles: [],
-            filename: 'source-map.json',
-            nomap: false
-        }, this.options());
-
-
-        if(options.nomap){
-            require('fs').writeFileSync(options.java + path.sep + options.filename, "{}");
-            return;
-        }
-
-        var map = {};
-
-        this.files.forEach(function(f){
-            grunt.log.debug(JSON.stringify(f));
-            if (!grunt.file.exists(f.src[0])) {
-                grunt.log.warn('Source file "' + f.src[0] + '" not found.');
-            } else {
-                src = grunt.file.read(f.src[0]);
-                map = mix(map, JSON.parse(src));
-            }
-        });
-
-        //获取requirejs cache bust生成的js模块的source map
-        // var resourceMap = grunt.file.read(this.options().dist + '/resource-map.json');
-        // modulePath = 'requirejs.config({"paths": ' + resourceMap + "});";
-        // var rsConfig = grunt.file.read(this.options().dist + '/js/rs-config.js');
-
-        // grunt.file.write(this.options().dist + '/js/rs-config.js', rsConfig + modulePath);
-        // grunt.log.writeln("update rs-config.js");
-
-
-        // grunt.log.debug(JSON.stringify(map));
-
-        var newMap = {};
-
-        for(var key in map){
-            var newKey;
-            grunt.log.debug(newKey = key.replace(/^\.+\//, ''));
-            newMap[newKey] = map[key].replace(/^\.+\//, '');
-        }
-        grunt.file.write(this.options().dist + '/source-map.json', JSON.stringify(newMap));
-        require('fs').writeFileSync(this.options().java + "/source-map-web.json", JSON.stringify(newMap));
-
-    });
 
     grunt.registerTask('dist', [
         'less:development',
