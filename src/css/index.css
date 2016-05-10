@@ -212,12 +212,12 @@ header.page nav {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 71px;
+    top: 80px;
     bottom: 0;
     left: 0;
     z-index: 1000;
     display: block;
-    padding: 20px;
+    padding: 10px;
     overflow-x: hidden;
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
@@ -226,6 +226,35 @@ header.page nav {
   .sidebar a {
     color: #999;
     line-height: 1.4;
+  }
+  .sidebar a:hover {
+    text-decoration: none;
+  }
+  .sidebar ul li > a {
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 6px;
+    display: block;
+  }
+  .sidebar ul li > a i {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    margin-right: 4px;
+    font-size: 10px;
+  }
+  .sidebar ul li > a:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+  .sidebar ul li > ul li {
+    padding-left: 20px;
+  }
+  .sidebar ul li.active {
+    background: #06c;
+    border-radius: 3px;
+  }
+  .sidebar ul li.active a {
+    color: #fff;
   }
   .main {
     background: #fff;

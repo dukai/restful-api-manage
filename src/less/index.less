@@ -90,18 +90,51 @@ header.page{
 @media (min-width: 768px) {
     .sidebar {
         position: fixed;
-        top: 71px;
+        top: 80px;
         bottom: 0;
         left: 0;
         z-index: 1000;
         display: block;
-        padding: 20px;
+        padding: 10px;
         overflow-x: hidden;
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
         border-right: 1px solid #eee;
         a{
             color:#999;
             line-height:1.4;
+            &:hover{text-decoration:none;}
+        }
+
+        ul{
+            li{
+                >a{
+                    font-size:14px;
+                    line-height:1.2;
+                    padding:6px;
+                    .d-b;
+                    i{
+                        .d-ib;
+                        .mr(4px);
+                        font-size:10px;
+                    }
+
+                    &:hover{
+                        color:rgba(255, 255, 255, .8) !important;
+                    }
+                }
+                >ul{
+                    li{
+                        .pl(20px);
+                    }
+                }
+                &.active{
+                    background: #06c;
+                    border-radius:3px;
+                    a{
+                        color:#fff;
+                    }
+                }
+            }
         }
     }
     .main{
