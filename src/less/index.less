@@ -103,14 +103,22 @@ header.page{
             color:#999;
             line-height:1.4;
             &:hover{text-decoration:none;}
+            &:active, &:focus{
+                text-decoration:none;
+            }
         }
 
         ul{
+            ul{
+                background:rgba(255,255,255, .1);
+                border-radius:3px;
+            }
             li{
+                .mb(1px);
                 >a{
                     font-size:14px;
                     line-height:1.2;
-                    padding:6px;
+                    padding:10px 6px;
                     .d-b;
                     i{
                         .d-ib;
@@ -124,7 +132,7 @@ header.page{
                         .pl(20px);
                     }
                 }
-                &.active{
+                &.active, &:hover{
                     background: #06c;
                     border-radius:3px;
                     a{

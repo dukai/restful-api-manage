@@ -230,10 +230,21 @@ header.page nav {
   .sidebar a:hover {
     text-decoration: none;
   }
+  .sidebar a:active,
+  .sidebar a:focus {
+    text-decoration: none;
+  }
+  .sidebar ul ul {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+  .sidebar ul li {
+    margin-bottom: 1px;
+  }
   .sidebar ul li > a {
     font-size: 14px;
     line-height: 1.2;
-    padding: 6px;
+    padding: 10px 6px;
     display: block;
   }
   .sidebar ul li > a i {
@@ -246,14 +257,17 @@ header.page nav {
   .sidebar ul li > ul li {
     padding-left: 20px;
   }
-  .sidebar ul li.active {
+  .sidebar ul li.active,
+  .sidebar ul li:hover {
     background: #06c;
     border-radius: 3px;
   }
-  .sidebar ul li.active a {
+  .sidebar ul li.active a,
+  .sidebar ul li:hover a {
     color: #fff;
   }
-  .sidebar ul li.active a:hover {
+  .sidebar ul li.active a:hover,
+  .sidebar ul li:hover a:hover {
     color: rgba(255, 255, 255, 0.8) !important;
   }
   .main {
