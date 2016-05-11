@@ -275,6 +275,13 @@ header.page nav {
     border-radius: 3px;
     padding: 8px;
   }
+  .main .ttl {
+    margin-bottom: 10px;
+    padding: 6px 0;
+  }
+  .main table th {
+    font-weight: bold;
+  }
 }
 strong {
   font-weight: bold;
