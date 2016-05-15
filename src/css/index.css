@@ -215,6 +215,7 @@ header.page nav {
     padding: 10px 6px;
     margin-bottom: 1px;
     display: block;
+    background: rgba(255, 255, 255, 0.2);
   }
   .sidebar ul.tree li > a i {
     display: inline-block;
