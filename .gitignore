@@ -1,4 +1,6 @@
-node_modules
+node_modules/amd-loader
+node_modules/grunt*
+node_modules/vue
 npm-debug.log
 *.swp
 test/lib/*
