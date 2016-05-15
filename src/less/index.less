@@ -1,172 +1,150 @@
 @import "global";
-
-.modal-mask {
-    position: fixed;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: table;
-    transition: opacity .3s ease;
+.modal{
+  .d-b;
+  background-color: rgba(0, 0, 0, .5);
+  transition: opacity .3s ease;
+}
+.modal-transition{
+  transition: all .3s ease;
+}
+.modal-enter, .modal-leave {
+  opacity: 0;
 }
 
-.modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
+.modal-enter .modal-dialog,
+.modal-leave .modal-dialog {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
-.modal-container {
-    width: 300px;
-    margin: 0px auto;
-    padding: 20px 30px;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
-    font-family: Helvetica, Arial, sans-serif;
+body,html{
+  background-color:#f1f1f1;
+  height:100%;
+  color:#999;
 }
-
-.modal-header h3 {
-    margin-top: 0;
-    color: #42b983;
-}
-
-.modal-body {
-    margin: 20px 0;
-}
-
-.modal-default-button {
-    float: right;
-}
-
-/*
- * the following styles are auto-applied to elements with
- * v-transition="modal" when their visiblity is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-    .modal-enter, .modal-leave {
-        opacity: 0;
-    }
-
-    .modal-enter .modal-container,
-    .modal-leave .modal-container {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-    }
-
-    body,html{
-        background-color:#f1f1f1;
-        height:100%;
-        color:#999;
-    }
 header.page{
-    background-color:#fff;
-    height:50px;
-    .logo{
-        .rect(50px);
-        background:url(../images/logo.png);
-        .pull-left;
-    }
-    button.btn{
-        .rel;
-        .mt(8px);
-        .mr(4px);
-        color:#999;
-    }
+  background-color:#fff;
+  height:50px;
+  .logo{
+    .rect(50px);
+    background:url(../images/logo.png);
+    .pull-left;
+  }
+  button.btn{
+    .rel;
+    .mt(8px);
+    .mr(4px);
+    color:#999;
+  }
 
-    nav{
-        .pull-left;
-    }
+  nav{
+    .pull-left;
+  }
 }
 .sidebar {
-    display: none;
+  display: none;
 }
 @media (min-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 80px;
-        bottom: 0;
-        left: 0;
-        z-index: 1000;
-        display: block;
-        padding: 10px;
-        overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        border-right: 1px solid #eee;
+  .sidebar {
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #eee;
+    a{
+      color:#666;
+      line-height:1.4;
+      &:hover{text-decoration:none;}
+      &:active, &:focus{
+        text-decoration:none;
+      }
+    }
+
+    ul.tree{
+      >li{
+        &.active{
+          background:#fff;
+        }
+      }
+      ul{
+        background:rgba(0,66,132, .1);
+        border-radius:3px;
+      }
+      li{
+        .mb(1px);
+        >a{
+          font-size:14px;
+          line-height:1.2;
+          padding:10px 6px;
+          .mb(1px);
+          .d-b;
+          i{
+            .d-ib;
+            .pr(4px);
+            font-size:12px;
+            .pointer;
+          }
+
+          span{
+            .d-ib;
+            .pointer;
+            padding: 0 6px;
+          }
+
+        }
+        >ul{
+          li{
+            .ml(20px);
+          }
+        }
+        &.active{
+          //background:#f90;
+          border-radius:3px;
+        }
         a{
-            color:#999;
-            line-height:1.4;
-            &:hover{text-decoration:none;}
-            &:active, &:focus{
-                text-decoration:none;
-            }
+          border-radius:3px;
+          &:hover, &.active{
+            color:#fff;
+            background: #06c;
+            color:rgba(255, 255, 255, .8) !important;
+          }
         }
-
-        ul{
-            ul{
-                background:rgba(255,255,255, .1);
-                border-radius:3px;
-            }
-            li{
-                .mb(1px);
-                >a{
-                    font-size:14px;
-                    line-height:1.2;
-                    padding:10px 6px;
-                    .d-b;
-                    i{
-                        .d-ib;
-                        .mr(4px);
-                        font-size:10px;
-                    }
-
-                }
-                >ul{
-                    li{
-                        .pl(20px);
-                    }
-                }
-                &.active, &:hover{
-                    background: #06c;
-                    border-radius:3px;
-                    a{
-                        color:#fff;
-                        &:hover{
-                            color:rgba(255, 255, 255, .8) !important;
-                        }
-                    }
-                }
-            }
-        }
+      }
     }
-    .main{
-         background:#fff;
-         border-radius:3px;
-         padding: 8px;
+  }
+  .main{
+    background:#fff;
+    border-radius:3px;
+    padding: 8px;
 
-         .ttl{
-            .mb(10px);
-            padding: 6px 0;
-         }
-
-         table{
-             th{
-                 font-weight:bold;
-             }
-         }
+    .ttl{
+      .mb(10px);
+      padding: 6px 0;
     }
+
+    table{
+      th{
+        font-weight:bold;
+      }
+    }
+
+    h2{
+      font-size:16px;
+      line-height:1.2;
+      padding: 10px 0;
+    }
+  }
 }
 strong{
-    font-weight:bold;
+  font-weight:bold;
 }
 .summary{
-    line-height:1.2;
-    font-size:14px;
-    padding:12px;
+  line-height:1.2;
+  font-size:14px;
+  padding:12px;
 }

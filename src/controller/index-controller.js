@@ -1,10 +1,11 @@
 require('amd-loader');
-var conf = require('../../node-lib/confrw.js');
+var loadtp = require('lib/loadtp');
+var conf = require('lib/confrw.js');
 
 var Vue = require('vue');
 
 Vue.component('modal', {
-    template: require('fs').readFileSync(__dirname + '/../view/modal.tp', 'utf8'),
+    template: loadtp('modal'),
     props: {
         show: {
             type: Boolean,
@@ -44,3 +45,5 @@ new Vue({
         }
     }
 });
+
+require('./tree');

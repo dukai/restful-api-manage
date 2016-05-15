@@ -129,55 +129,20 @@ legend {
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.modal {
+  display: block;
   background-color: rgba(0, 0, 0, 0.5);
-  display: table;
   transition: opacity .3s ease;
 }
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+.modal-transition {
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-.modal-body {
-  margin: 20px 0;
-}
-.modal-default-button {
-  float: right;
-}
-/*
- * the following styles are auto-applied to elements with
- * v-transition="modal" when their visiblity is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 .modal-enter,
 .modal-leave {
   opacity: 0;
 }
-.modal-enter .modal-container,
-.modal-leave .modal-container {
+.modal-enter .modal-dialog,
+.modal-leave .modal-dialog {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
@@ -224,7 +189,7 @@ header.page nav {
     border-right: 1px solid #eee;
   }
   .sidebar a {
-    color: #999;
+    color: #666;
     line-height: 1.4;
   }
   .sidebar a:hover {
@@ -234,40 +199,51 @@ header.page nav {
   .sidebar a:focus {
     text-decoration: none;
   }
-  .sidebar ul ul {
-    background: rgba(255, 255, 255, 0.1);
+  .sidebar ul.tree > li.active {
+    background: #fff;
+  }
+  .sidebar ul.tree ul {
+    background: rgba(0, 66, 132, 0.1);
     border-radius: 3px;
   }
-  .sidebar ul li {
+  .sidebar ul.tree li {
     margin-bottom: 1px;
   }
-  .sidebar ul li > a {
+  .sidebar ul.tree li > a {
     font-size: 14px;
     line-height: 1.2;
     padding: 10px 6px;
+    margin-bottom: 1px;
     display: block;
   }
-  .sidebar ul li > a i {
+  .sidebar ul.tree li > a i {
     display: inline-block;
     *display: inline;
     zoom: 1;
-    margin-right: 4px;
-    font-size: 10px;
+    padding-right: 4px;
+    font-size: 12px;
+    cursor: pointer;
   }
-  .sidebar ul li > ul li {
-    padding-left: 20px;
+  .sidebar ul.tree li > a span {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    cursor: pointer;
+    padding: 0 6px;
   }
-  .sidebar ul li.active,
-  .sidebar ul li:hover {
-    background: #06c;
+  .sidebar ul.tree li > ul li {
+    margin-left: 20px;
+  }
+  .sidebar ul.tree li.active {
     border-radius: 3px;
   }
-  .sidebar ul li.active a,
-  .sidebar ul li:hover a {
-    color: #fff;
+  .sidebar ul.tree li a {
+    border-radius: 3px;
   }
-  .sidebar ul li.active a:hover,
-  .sidebar ul li:hover a:hover {
+  .sidebar ul.tree li a:hover,
+  .sidebar ul.tree li a.active {
+    color: #fff;
+    background: #06c;
     color: rgba(255, 255, 255, 0.8) !important;
   }
   .main {
@@ -281,6 +257,11 @@ header.page nav {
   }
   .main table th {
     font-weight: bold;
+  }
+  .main h2 {
+    font-size: 16px;
+    line-height: 1.2;
+    padding: 10px 0;
   }
 }
 strong {
