@@ -224,6 +224,10 @@ header.page nav {
     font-size: 12px;
     cursor: pointer;
   }
+  .sidebar ul.tree li > a i:hover {
+    color: #fff;
+    text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.6);
+  }
   .sidebar ul.tree li > a span {
     display: inline-block;
     *display: inline;
@@ -243,8 +247,12 @@ header.page nav {
   .sidebar ul.tree li a:hover,
   .sidebar ul.tree li a.active {
     color: #fff;
-    background: #06c;
+    background: #2383e2;
     color: rgba(255, 255, 255, 0.8) !important;
+  }
+  .sidebar ul.tree li a.selected {
+    background: #06c;
+    color: #fff;
   }
   .main {
     background: #fff;

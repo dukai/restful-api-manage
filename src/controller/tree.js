@@ -38,7 +38,8 @@ Vue.component('item', {
   },
   data: function () {
     return {
-      open: false
+      open: false,
+      selected: false
     }
   },
   computed: {

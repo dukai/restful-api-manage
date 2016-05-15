@@ -88,6 +88,10 @@ header.page{
             .pr(4px);
             font-size:12px;
             .pointer;
+            &:hover{
+              color:#fff;
+              text-shadow: 1px 2px 0 rgba(0, 0, 0, .6);
+            }
           }
 
           span{
@@ -110,8 +114,13 @@ header.page{
           border-radius:3px;
           &:hover, &.active{
             color:#fff;
-            background: #06c;
+            background: #2383e2;
             color:rgba(255, 255, 255, .8) !important;
+          }
+
+          &.selected{
+            background:#06c;
+            color:#fff;
           }
         }
       }

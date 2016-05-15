@@ -30,9 +30,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="">
-                    <li class="active">
+            <div class="col-sm-3 col-md-3 sidebar">
+                <ul class="tree" id="demo">
+                    <item class="item" :model="treeData"> </item>
+                    <!--li class="active">
                         <a href="#"><i class="glyphicon glyphicon-menu-up"></i>数据运营</a>
                         <ul>
                             <li>
@@ -79,10 +80,10 @@
                         </ul>
                         
                     </li>
-                    <li><a href="#"><i class="glyphicon glyphicon-menu-down"></i>后台管理</a></li>
+                    <li><a href="#"><i class="glyphicon glyphicon-menu-down"></i>后台管理</a></li-->
                 </ul>
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
                 <div class="container-fluid">
                     <div class="row ttl">
                         <div class="col-sm-6"><strong>每日优金币区间设备数/每日优金币收益分段占比</strong></div>
@@ -91,6 +92,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
+                            <h2>请求参数</h2>
                             <table class="table table-striped">
                                 <tr><th>参数</th><th>必选</th><th>类型</th><th>说明</th><th>示例</th></tr>
                                 <tr><td>startDate</td><td>true</td><td>string</td><td>开始日期</td><td>2015-1-1</td></tr>
@@ -99,11 +101,21 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>响应参数</h2>
+                            <pre id="t1">  
+                            </pre>
+                            <h2>错误信息</h2>
+                            <pre id="t2">  
+                            </pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="btn-group" style="display:none">
+    <div class="btn-group" style="/*display:none*/margin-left:400px;">
         <button type="button" class="btn btn-primary" @click="setDir">设置目录</button>
 
         <button id="showModal" @click="showModal=true" type="button" class="btn btn-success">设置基本信息</button>
@@ -119,8 +131,31 @@
         </ul>
     </div>
     <script>
-        window.jQuery = require('../../bower-lib/jquery/dist/jquery');
+        window.jQuery = $ = require('../../bower-lib/jquery/dist/jquery');
         require('../controller/index-controller');
+        var data = {
+          "code": 0,
+          "msg": "成功",
+          "total": 0,
+          "data": [
+          {
+            "p_value": 20000,
+            "cdate": "2016-04-01",
+            "value": 0
+          }
+          ]
+        };
+        var data2 = {
+          "code": 4002,
+          "msg": "sn号不能为空!",
+          "total": 0,
+          "data": {
+            "result": null
+          }
+        };
+
+        $('#t1').html(JSON.stringify(data, null, 2));
+        $('#t2').html(JSON.stringify(data2, null, 2));
     </script>
     <script src="../../bower-lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
