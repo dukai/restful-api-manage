@@ -13,14 +13,37 @@
 <body>
     <header class="page">
         <div class="logo"></div>
-        <div class="dropdown pull-right">
+        <div class="dropdown pull-right project">
             <button id="dLabel" class="menu btn btn-default" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="glyphicon glyphicon-th-list"></i></button>
             <ul class="dropdown-menu" aria-labelledby="dLabel">
-                <li><a href="#">创建项目</a></li>
+                <li><a href="#" @click="showCreateProject=true">创建项目</a></li>
                 <li><a href="#">打开项目</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">启动项目</a></li>
             </ul>
+            <modal :show.sync="showCreateProject">
+              <h3 slot="header">创建项目</h3>
+              <div slot="body">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">项目名称</label>
+                    <div class="col-sm-10">
+                      <p class="form-control-static">email@example.com</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">项目目录</label>
+                    <div class="col-sm-6">
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">选择目录</button>
+                  </div>
+                </form>
+              </div>
+              <span slot="buttons">
+                <button type="button" class="btn btn-primary" @click="saveProject">保存</button>
+              </span>
+            </modal>
         </div>
     </header>
 	<div class="container-fluid">
@@ -33,54 +56,6 @@
             <div class="col-sm-3 col-md-3 sidebar">
                 <ul class="tree" id="demo">
                     <item class="item" :model="treeData"> </item>
-                    <!--li class="active">
-                        <a href="#"><i class="glyphicon glyphicon-menu-up"></i>数据运营</a>
-                        <ul>
-                            <li>
-                                <a href="#"><i class="glyphicon glyphicon-menu-up"></i>设备收益</a>
-
-                                <ul>
-                                    <li><a href="#"><i class="glyphicon glyphicon-menu-up"></i>每日优金币区间设备数/每日优金币收益分段占比</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="glyphicon glyphicon-menu-down"></i>资金对账</a>
-                        <ul>
-                            <li>
-                                <a href="#"><i class="glyphicon glyphicon-menu-up"></i>用户体验数据</a>
-
-                                <ul>
-                                    <li><a href="#">设备日收支区间</a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li><a href="#"><i class="glyphicon glyphicon-menu-down"></i>异常报警</a>
-                        <ul>
-                            <li>
-                                <a href="#"><i class="glyphicon glyphicon-menu-up"></i>异常提现</a>
-
-                                <ul>
-                                    <li><a href="#">获取每日提现笔数图表信息数据</a> </li>
-                                    <li><a href="#">获取每日提现总额图表信息数据</a> </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="glyphicon glyphicon-menu-up"></i>异常结算</a>
-
-                                <ul>
-                                    <li><a href="#">获取每日结算金币总额图表信息</a> </li>
-                                    <li><a href="#">获取每日提高收益设备数量图表信息</a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        
-                    </li>
-                    <li><a href="#"><i class="glyphicon glyphicon-menu-down"></i>后台管理</a></li-->
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">

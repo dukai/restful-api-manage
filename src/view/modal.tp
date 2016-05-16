@@ -13,7 +13,7 @@
           <div class="modal-footer">
             <slot name="footer">
               <button class="btn btn-default" @click="show = false">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <slot name="buttons"></slot>
             </slot>
           </div>
         </div><!-- /.modal-content -->
