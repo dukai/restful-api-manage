@@ -4,11 +4,13 @@ const loadtp = require('lib/loadtp');
 
 var data = {
   name: 'YJB OM System',
+  open: true,
   children: [
     { name: '数据运营' },
     { name: '资金对账' },
     {
       name: '异常报警',
+      open: false,
       children: [
         {
           name: '异常提现',
@@ -38,20 +40,27 @@ Vue.component('item', {
   },
   data: function () {
     return {
-      open: false,
       selected: false
     }
   },
   computed: {
     isFolder: function () {
-      return this.model.children &&
-        this.model.children.length
+      return !!this.model.children && !!this.model.children.length
+    },
+    open: {
+        get: function(){
+            return !!this.model.open;
+            return this.isFolder && !!this.model.open;
+        },
+        set: function(value){
+            Vue.set(this.model, 'open', value);
+        }
     }
   },
   methods: {
     toggle: function () {
       if (this.isFolder) {
-        this.open = !this.open
+        this.open = !this.open;
       }
     },
     changeType: function (e) {
@@ -80,7 +89,7 @@ Vue.component('item', {
 })
 
 // boot up the demo
-var demo = new Vue({
+var treedemo = new Vue({
   el: '#demo',
   data: {
     treeData: data

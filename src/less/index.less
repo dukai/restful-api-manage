@@ -30,7 +30,7 @@ header.page{
     background:url(../images/logo.png);
     .pull-left;
   }
-  button.btn{
+  button.btn.menu{
     .rel;
     .mt(8px);
     .mr(4px);
@@ -56,14 +56,6 @@ header.page{
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     border-right: 1px solid #eee;
-    a{
-      color:#666;
-      line-height:1.4;
-      &:hover{text-decoration:none;}
-      &:active, &:focus{
-        text-decoration:none;
-      }
-    }
 
     ul.tree{
       >li{
@@ -72,15 +64,20 @@ header.page{
         }
       }
       ul{
-        background:rgba(0,66,132, .1);
+        background:rgba(0, 102, 204, .1);
         border-radius:3px;
       }
       li{
         .mb(1px);
         >a{
+            color:#666;
+            line-height: 24px;
+            &:hover{text-decoration:none;}
+            &:active, &:focus{
+                text-decoration:none;
+            }
           font-size:14px;
-          line-height:1.2;
-          padding:10px 6px;
+          padding:6px;
           .mb(1px);
           .d-b;
           background: rgba(255,255, 255,.2);

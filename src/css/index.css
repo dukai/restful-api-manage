@@ -162,7 +162,7 @@ header.page .logo {
   background: url(../images/logo.png);
   float: left;
 }
-header.page button.btn {
+header.page button.btn.menu {
   position: relative;
   margin-top: 8px;
   margin-right: 4px;
@@ -188,34 +188,31 @@ header.page nav {
     /* Scrollable contents if viewport is shorter than content. */
     border-right: 1px solid #eee;
   }
-  .sidebar a {
-    color: #666;
-    line-height: 1.4;
-  }
-  .sidebar a:hover {
-    text-decoration: none;
-  }
-  .sidebar a:active,
-  .sidebar a:focus {
-    text-decoration: none;
-  }
   .sidebar ul.tree > li.active {
     background: #fff;
   }
   .sidebar ul.tree ul {
-    background: rgba(0, 66, 132, 0.1);
+    background: rgba(0, 102, 204, 0.1);
     border-radius: 3px;
   }
   .sidebar ul.tree li {
     margin-bottom: 1px;
   }
   .sidebar ul.tree li > a {
+    color: #666;
+    line-height: 24px;
     font-size: 14px;
-    line-height: 1.2;
-    padding: 10px 6px;
+    padding: 6px;
     margin-bottom: 1px;
     display: block;
     background: rgba(255, 255, 255, 0.2);
+  }
+  .sidebar ul.tree li > a:hover {
+    text-decoration: none;
+  }
+  .sidebar ul.tree li > a:active,
+  .sidebar ul.tree li > a:focus {
+    text-decoration: none;
   }
   .sidebar ul.tree li > a i {
     display: inline-block;
