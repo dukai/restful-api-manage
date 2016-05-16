@@ -105,42 +105,6 @@ module.exports = function(grunt) {
                             name: 'app/page-index',
                             exclude: config.requirejsExclude
                         },
-                        {
-                            name: 'app/page-list',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/page-item',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/page-item-withdraw',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/page-result',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/page-order',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/widget/rank',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/widget/boutique',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/widget/realtime-exchange',
-                            exclude: config.requirejsExclude
-                        },
-                        {
-                            name: 'app/widget/bling',
-                            exclude: config.requirejsExclude
-                        },
                     ]
                 }
             },
@@ -177,7 +141,7 @@ module.exports = function(grunt) {
                 }
             },
             html: {
-                files: ['<%= config.webroot %>/page/**/*.html'],
+                files: ['<%= config.webroot %>/page/**/*.html','<%= config.webroot %>/controller/**/*.js', '<%= config.webroot %>/view/**/*.tp'],
                 options: {
                     nospawn: true
                 }
@@ -313,10 +277,10 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-replace');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-inline-text');
-    grunt.loadNpmTasks('grunt-express-server');
+    //grunt.loadNpmTasks('grunt-replace');
+    //grunt.loadNpmTasks('grunt-contrib-clean');
+    //grunt.loadNpmTasks('grunt-inline-text');
+    //grunt.loadNpmTasks('grunt-express-server');
 
     grunt.registerTask('dist', [
         'less:development',
