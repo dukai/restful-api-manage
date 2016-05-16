@@ -88,11 +88,4 @@ Vue.component('item', {
   }
 })
 
-// boot up the demo
-var treedemo = new Vue({
-  el: '#demo',
-  data: {
-    treeData: data
-  }
-})
 
