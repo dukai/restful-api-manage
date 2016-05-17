@@ -47,14 +47,14 @@
         </div>
     </header>
   <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 summary">
-                <strong>优金币管理系统：</strong> <span>project/path/to/filesystem</span>
+        <div class="row project-info">
+            <div class="col-sm-12 summary" v-if="isload">
+                <strong>{{projectName}}：</strong> <span>{{projectPath}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3 col-md-3 sidebar">
-                <ul class="tree" id="demo">
+                <ul class="tree" id="menu">
                     <item class="item" :model="treeData"> </item>
                 </ul>
             </div>
@@ -120,7 +120,7 @@
             <div class="form-group">
               <label for="inputPassword" class="col-sm-2 control-label">类型</label>
               <div class="col-sm-6">
-                <select class="form-control">
+                <select v-model="type" class="form-control">
                   <option>Page</option>
                   <option>API</option>
                   <option>Group</option>

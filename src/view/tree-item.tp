@@ -1,7 +1,7 @@
 <li :class="{active: open}">
   <a 
     :class="{bold: isFolder, active: open, selected: selected}"
-    @click="selected=!selected"
+    @click="_select"
     @dblclick="changeType">
     <i 
       v-if="isFolder" 
@@ -10,7 +10,10 @@
       </i>
     {{model.name}}
 
-    <span @click="_addChild" class="pull-right">+</span>
+    <span class="operate">
+      <span @click="_removeChild">-</span>
+      <span @click="_addChild">+</span>
+    </span>
   </a>
   <ul v-show="open" v-if="isFolder" class="list">
     <item

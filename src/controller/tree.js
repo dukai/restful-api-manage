@@ -2,35 +2,6 @@
 const Vue = require('vue');
 const loadtp = require('lib/loadtp');
 
-var data = {
-  name: 'YJB OM System',
-  open: true,
-  children: [
-    { name: '数据运营' },
-    { name: '资金对账' },
-    {
-      name: '异常报警',
-      open: false,
-      children: [
-        {
-          name: '异常提现',
-          children: [
-            { name: '获取每日提现笔数图表信息数据' },
-            { name: '获取每日提现总额图表信息数据' }
-          ]
-        },
-        { name: '异常结算' },
-        {
-          name: 'child folder',
-          children: [
-            { name: 'hello' },
-            { name: 'wat' }
-          ]
-        }
-      ]
-    }
-  ]
-}
 
 // define the item component
 Vue.component('item', {
@@ -58,6 +29,10 @@ Vue.component('item', {
     }
   },
   methods: {
+    _select: function(){
+      this.selected = !this.selected;
+      this.$dispatch('selected', this);
+    },
     toggle: function () {
       if (this.isFolder) {
         this.open = !this.open;
@@ -87,12 +62,16 @@ Vue.component('item', {
 
       this.$dispatch('addChild', this);
     },
-    addChild: function(name){
+    addChild: function(item){
       this.model.children.push({
-        name: name
+        name: item.name,
+        uuid: item.uuid
       });
 
       this.$dispatch('addSuccess');
+    },
+    _removeChild: function(){
+    
     }
   }
 });

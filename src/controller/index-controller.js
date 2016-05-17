@@ -2,10 +2,12 @@ require('amd-loader');
 var loadtp = require('lib/loadtp');
 var conf = require('lib/confrw.js');
 const dialog = require('electron').remote.dialog;
+const nodeuuid = require('node-uuid');
 
 var pref = conf.read();
 
 var util = {
+  items: {},
   addRecent: function(project){
     if(!pref.recent){
       pref.recent = [];
@@ -29,10 +31,17 @@ var util = {
     }else{
       var project = JSON.parse(pref.recent[0]);
       project.menu = project.path + require('path').sep + 'menu.json';
+      project.items = project.path + require('path').sep + 'items.json';
       return project;
     }
   },
+
+  saveItems: function(item){
+    this.items[item.uuid] = item;
+    conf.save(this.items, this.getCurrent().items);
+  }
 };
+
 
 var Vue = require('vue');
 
@@ -50,32 +59,17 @@ Vue.component('modal', {
 var projectInfo = new Vue({
   el: '.project-info',
   data: {
-    projectPath: ''
+    isload: false,
+    projectPath: '',
+    projectName: ''
   }
 });
 
-//new Vue({
-//  el: '.btn-group',
-//  data: {
-//    showModal: false
-//  },
-//  methods: {
-//    setDir: function(){
-//      var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]});
-//      if(path === undefined){
-//        return;
-//      }
-//      var configfile = path + require('path').sep + 'config.json';
-//      var data = {
-//        name: 'om api',
-//        author: 'dukai'
-//      };
-//      require('fs').writeFileSync(configfile, JSON.stringify(data, null, 4));
-//
-//      projectInfo.projectPath = path;
-//    }
-//  }
-//});
+if(typeof util.getCurrent().name){
+  projectInfo.projectName = util.getCurrent().name;
+  projectInfo.projectPath = util.getCurrent().path;
+  projectInfo.isload = true;
+}
 
 require('./tree');
 
@@ -103,12 +97,15 @@ var project = new Vue({
         name: this.projectName,
         path: this.projectPath
       };
+
+      projectInfo.projectName = this.projectName;
+      projectInfo.projectPath = this.projectPath;
       //保存配置文件
       conf.save(data, configfile);
       util.addRecent(data);
       this.showCreateProject = false;
 
-      conf.save({name: data.name}, data.path + require('path').sep + 'menu.json');
+      conf.save({name: data.name, uuid: nodeuuid.v1()}, data.path + require('path').sep + 'menu.json');
 
       this.openCurrentProject(data);
       
@@ -130,9 +127,10 @@ var project = new Vue({
 
 //tree menu
 var tree = new Vue({
-  el: '#demo',
+  el: '#menu',
   data: {
-    treeData: conf.read(util.getCurrent().menu)
+    treeData: conf.read(util.getCurrent().menu),
+    currentItem: null
   },
   events: {
     addChild: function(item){
@@ -140,6 +138,12 @@ var tree = new Vue({
     },
     addSuccess: function(){
       conf.save(this.treeData, util.getCurrent().menu)
+    },
+    selected: function(item){
+      if(this.currentItem){
+        this.currentItem.selected = false;
+      }
+      this.currentItem = item;
     }
   }
 })
@@ -148,7 +152,8 @@ var popboxes = new Vue({
   data: {
     showCreatNewAPI: false,
 
-    name: ''
+    name: '',
+    type: ''
   },
   methods: {
     create: function(item){
@@ -157,10 +162,17 @@ var popboxes = new Vue({
     },
 
     saveAPI: function(){
-      this.currentItem.addChild(this.name);
+      var uuid = nodeuuid.v1();
+      this.currentItem.addChild({name: this.name, uuid: uuid});
       this.currentItem = null;
       this.showCreatNewAPI = false;
+      util.saveItems({
+        name: this.name,
+        uuid: uuid,
+        type: this.type
+      });
       this.name = '';
+      this.type = '';
     }
   }
 });
