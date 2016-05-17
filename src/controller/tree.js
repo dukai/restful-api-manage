@@ -66,11 +66,11 @@ Vue.component('item', {
     changeType: function (e) {
       if (!this.isFolder) {
         Vue.set(this.model, 'children', [])
-        this.addChild(e)
+        this._addChild(e)
         this.open = true
       }
     },
-    addChild: function (e) {
+    _addChild: function (e) {
       e.preventDefault();
       e.stopPropagation();
 
@@ -81,11 +81,20 @@ Vue.component('item', {
       if(!this.open){
         this.toggle();
       }
+      //this.model.children.push({
+      //  name: 'new stuff'
+      //})
+
+      this.$dispatch('addChild', this);
+    },
+    addChild: function(name){
       this.model.children.push({
-        name: 'new stuff'
-      })
+        name: name
+      });
+
+      this.$dispatch('addSuccess');
     }
   }
-})
+});
 
 

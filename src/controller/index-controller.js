@@ -21,7 +21,17 @@ var util = {
     }
     pref.recent.unshift(JSON.stringify(project));
     conf.save(pref);
-  }
+  },
+
+  getCurrent: function(){
+    if(!pref.recent || pref.recent.length == 0){
+      return {};
+    }else{
+      var project = JSON.parse(pref.recent[0]);
+      project.menu = project.path + require('path').sep + 'menu.json';
+      return project;
+    }
+  },
 };
 
 var Vue = require('vue');
@@ -44,35 +54,38 @@ var projectInfo = new Vue({
   }
 });
 
-new Vue({
-  el: '.btn-group',
-  data: {
-    showModal: false
-  },
-  methods: {
-    setDir: function(){
-      var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]});
-      if(path === undefined){
-        return;
-      }
-      var configfile = path + require('path').sep + 'config.json';
-      var data = {
-        name: 'om api',
-        author: 'dukai'
-      };
-      require('fs').writeFileSync(configfile, JSON.stringify(data, null, 4));
-
-      projectInfo.projectPath = path;
-    }
-  }
-});
+//new Vue({
+//  el: '.btn-group',
+//  data: {
+//    showModal: false
+//  },
+//  methods: {
+//    setDir: function(){
+//      var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]});
+//      if(path === undefined){
+//        return;
+//      }
+//      var configfile = path + require('path').sep + 'config.json';
+//      var data = {
+//        name: 'om api',
+//        author: 'dukai'
+//      };
+//      require('fs').writeFileSync(configfile, JSON.stringify(data, null, 4));
+//
+//      projectInfo.projectPath = path;
+//    }
+//  }
+//});
 
 require('./tree');
 
-new Vue({
+
+//prject context menu
+
+var project = new Vue({
   el: '.dropdown.project',
   data: {
-    showCreateProject: true,
+    showCreateProject: false,
     showOpenProject: false,
 
     projectName: '',
@@ -98,15 +111,11 @@ new Vue({
       conf.save({name: data.name}, data.path + require('path').sep + 'menu.json');
 
       this.openCurrentProject(data);
+      
     },
 
     openCurrentProject: function(data){
-      new Vue({
-        el: '#demo',
-        data: {
-          treeData: conf.read(data.path + require('path').sep + 'menu.json')
-        }
-      })
+      tree.treeData = conf.read(data.path + require('path').sep + 'menu.json');
     },
 
     selectProjectPath: function(){
@@ -119,11 +128,39 @@ new Vue({
   }
 });
 
+//tree menu
+var tree = new Vue({
+  el: '#demo',
+  data: {
+    treeData: conf.read(util.getCurrent().menu)
+  },
+  events: {
+    addChild: function(item){
+      popboxes.create(item);
+    },
+    addSuccess: function(){
+      conf.save(this.treeData, util.getCurrent().menu)
+    }
+  }
+})
+var popboxes = new Vue({
+  el: '.popboxes',
+  data: {
+    showCreatNewAPI: false,
 
-// boot up the demo
-//var treedemo = new Vue({
-//  el: '#demo',
-//  data: {
-//    treeData: data
-//  }
-//})
+    name: ''
+  },
+  methods: {
+    create: function(item){
+      this.currentItem = item;
+      this.showCreatNewAPI = true;
+    },
+
+    saveAPI: function(){
+      this.currentItem.addChild(this.name);
+      this.currentItem = null;
+      this.showCreatNewAPI = false;
+      this.name = '';
+    }
+  }
+});

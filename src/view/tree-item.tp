@@ -10,7 +10,7 @@
       </i>
     {{model.name}}
 
-    <span @click="addChild" class="pull-right">+</span>
+    <span @click="_addChild" class="pull-right">+</span>
   </a>
   <ul v-show="open" v-if="isFolder" class="list">
     <item
@@ -18,6 +18,5 @@
       v-for="model in model.children"
       :model="model">
     </item>
-    <!--li @click="addChild"><a class="">+ create</a></li-->
   </ul>
 </li>
