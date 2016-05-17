@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "amd-loader": "0.0.5",
+    "node-uuid": "^1.4.7",
     "vue": "^1.0.21"
   }
 }
