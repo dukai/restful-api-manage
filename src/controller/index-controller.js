@@ -141,7 +141,7 @@ var tree = new Vue({
     },
     selected: function(item){
       if(this.currentItem){
-        if(item.uuid == this.currentItem.uuid){
+        if(item.model.uuid == this.currentItem.model.uuid){
           return;
         }
         this.currentItem.selected = false;
