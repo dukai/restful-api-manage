@@ -133,6 +133,21 @@
           <button type="button" class="btn btn-primary" @click="saveAPI">保存</button>
         </span>
       </modal>
+      <modal :show.sync="showConfirm">
+        <h3 slot="header">{{title}}</h3>
+        <div slot="body">
+          {{message}}
+        </div>
+        <span slot="buttons">
+          <button type="button" class="btn btn-danger" @click="doConfirm">确认</button>
+        </span>
+      </modal>
+      <modal :show.sync="showAlert">
+        <h3 slot="header">{{title}}</h3>
+        <div slot="body">
+          {{message}}
+        </div>
+      </modal>
     </div>
       
     <script>

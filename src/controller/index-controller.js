@@ -149,7 +149,17 @@ var tree = new Vue({
       this.currentItem = item;
     },
     removeChild: function(item){
-      conf.save(this.treeData, util.getCurrent().menu);
+      var self = this;
+      popboxes.title = "确认删除吗？";
+      popboxes.message = "删除后无法恢复，点击确认继续删除！";
+      popboxes.confirm(function(){
+        if(!item.model.children || item.model.children.length == 0){
+          item.$parent.model.children.$remove(item.model);
+          conf.save(self.treeData, util.getCurrent().menu);
+        }else{
+          popboxes.alert('存在子项，无法删除');
+        }
+      });
     }
   }
 })
@@ -157,9 +167,14 @@ var popboxes = new Vue({
   el: '.popboxes',
   data: {
     showCreatNewAPI: false,
+    showConfirm: false,
+    showAlert: false,
 
     name: '',
-    type: ''
+    type: 'Page',
+    title: '',
+    message: ''
+
   },
   methods: {
     create: function(item){
@@ -179,6 +194,20 @@ var popboxes = new Vue({
       });
       this.name = '';
       this.type = '';
+    },
+    confirm: function(callback){
+      this.showConfirm = true;
+      this.confirmCallback = callback;
+    },
+    doConfirm: function(){
+      this.confirmCallback();
+      this.confirmCallback = null;
+      this.showConfirm = false;
+    },
+    alert: function(content){
+      this.title = content;
+      this.message = content;
+      this.showAlert = true;
     }
   }
 });
