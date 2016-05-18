@@ -71,7 +71,27 @@ Vue.component('item', {
       this.$dispatch('addSuccess');
     },
     _removeChild: function(){
-    
+      this.$dispatch('removeChild', this);
+    }
+  },
+  events: {
+    removeChild: function(item){
+      //console.log(this.model);
+      //this.model.children.
+      if(this.model.uuid == item.model.uuid){
+        return true;
+      }
+
+      this.model.children.$remove(item.model);
+
+
+      return true;
+
+      //for(let i = 0, len = this.children.length; i < len; i++){
+      //  if(this.children[i].uuid == item.uuid){
+      //  }
+      //}
+
     }
   }
 });

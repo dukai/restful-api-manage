@@ -147,6 +147,9 @@ var tree = new Vue({
         this.currentItem.selected = false;
       }
       this.currentItem = item;
+    },
+    removeChild: function(item){
+      conf.save(this.treeData, util.getCurrent().menu);
     }
   }
 })

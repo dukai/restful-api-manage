@@ -10,7 +10,7 @@
     {{model.name}}
 
     <span class="operate">
-      <span @click.stop="_removeChild">-</span>
+      <span class="del" @click.stop="_removeChild">-</span>
       <span @click.stop="_addChild">+</span>
     </span>
   </a>
