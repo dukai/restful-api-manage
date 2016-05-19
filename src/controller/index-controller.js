@@ -6,6 +6,8 @@ const nodeuuid = require('node-uuid');
 const sep = require('path').sep;
 const util = require('../lib/util');
 
+require('../comp/page-detail');
+
 var Vue = require('vue');
 
 Vue.component('modal', {
@@ -147,6 +149,8 @@ var tree = new Vue({
       conf.save(this.treeData, util.getCurrent().menu)
     },
     selected: function(item){
+      main.showPageDetail = false;
+      main.showAPIDetail = false;
       if(this.currentItem){
         if(item.model.uuid == this.currentItem.model.uuid){
           this.currentItem = null;
@@ -160,8 +164,16 @@ var tree = new Vue({
 
 
       let selectedItem = util.getItem(this.currentItem.model.uuid);
-      if(selectedItem.type == "Page"){
-        this.addPage();
+      switch(selectedItem.type){
+        case "Page":
+          if(undefined == typeof selectedItem.detail){
+            this.addPage();
+          }else{
+            main.showPageDetail = true;
+            main.pageDetail = selectedItem;
+            console.log(selectedItem);
+          }
+          break;
       }
     },
     removeChild: function(item){
@@ -251,6 +263,9 @@ var popboxes = new Vue({
 var main = new Vue({
   el: '.main',
   data: {
-    selected: false
+    selected: false,
+    showPageDetail: false,
+    showAPIDetail: false,
+    pageDetail: {name:"", detail:{}}
   }
 });

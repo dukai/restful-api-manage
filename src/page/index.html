@@ -93,51 +93,9 @@
               <div class="welcome" v-show="!selected">
                 Welcome to LazyBear, select an item to view the detail.
               </div>
-                <div class="container-fluid" v-show="selected">
-                    <div class="row ttl">
-                        <div class="col-sm-6"><strong>每日优金币区间设备数/每日优金币收益分段占比</strong></div>
-                        <div class="col-sm-6">
-                            <span class="label label-primary">GET</span> <code>/youcoinom/data/m1/om0003/02.do</code> </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h2>请求参数</h2>
-                            <table class="table table-striped">
-                                <tr><th>参数</th><th>必选</th><th>类型</th><th>说明</th><th>示例</th></tr>
-                                <tr><td>startDate</td><td>true</td><td>string</td><td>开始日期</td><td>2015-1-1</td></tr>
-                                <tr><td>startDate</td><td>true</td><td>string</td><td>开始日期</td><td>2015-1-1</td></tr>
-                                <tr><td>startDate</td><td>true</td><td>string</td><td>开始日期</td><td>2015-1-1</td></tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h2>响应参数</h2>
-                            <pre id="t1">  
-                            </pre>
-                            <h2>错误信息</h2>
-                            <pre id="t2">  
-                            </pre>
-                        </div>
-                    </div>
-                </div>
+              <page-detail :show.sync="showPageDetail" :detail="pageDetail"></page-detail>
             </div>
         </div>
-    </div>
-    <div class="btn-group" style="display:none;margin-left:400px;">
-        <button type="button" class="btn btn-primary" @click="setDir">设置目录</button>
-
-        <button id="showModal" @click="showModal=true" type="button" class="btn btn-success">设置基本信息</button>
-            <button type="button" class="btn btn-info">添加项目</button>
-
-        <modal :show.sync="showModal">
-        <h3 slot="header">设置基本信息</h3>
-        </modal>
-    </div>
-    <div class="project-info"style="display:none">
-        <ul>
-            <li><label>项目路径:</label> <strong>{{projectPath}}</strong></li>
-        </ul>
     </div>
 
     <div class="popboxes">
