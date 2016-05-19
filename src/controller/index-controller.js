@@ -6,7 +6,6 @@ const nodeuuid = require('node-uuid');
 const sep = require('path').sep;
 const util = require('../lib/util');
 
-
 var Vue = require('vue');
 
 Vue.component('modal', {
@@ -115,6 +114,8 @@ var project = new Vue({
       conf.save(pref);
       this.showDeleteProject = false;
       this.openCurrentProject(util.getCurrent());
+
+      projectInfo.loadConfig();
     }
   }
 });
@@ -132,6 +133,12 @@ var tree = new Vue({
       return 'string' ==  typeof this.treeData.name
     }
   },
+  methods: {
+    addPage: function(){
+      popboxes.title = '添加页面详情';
+      popboxes.showNewPage = true;
+    }
+  },
   events: {
     addChild: function(item){
       popboxes.create(item);
@@ -142,11 +149,20 @@ var tree = new Vue({
     selected: function(item){
       if(this.currentItem){
         if(item.model.uuid == this.currentItem.model.uuid){
+          this.currentItem = null;
+          main.selected = false;
           return;
         }
         this.currentItem.selected = false;
       }
       this.currentItem = item;
+      main.selected = true;
+
+
+      let selectedItem = util.getItem(this.currentItem.model.uuid);
+      if(selectedItem.type == "Page"){
+        this.addPage();
+      }
     },
     removeChild: function(item){
       var self = this;
@@ -164,7 +180,10 @@ var tree = new Vue({
           popboxes.alert('存在子项，无法删除');
         }
       });
-    }
+    },
+
+
+
   }
 })
 var popboxes = new Vue({
@@ -173,11 +192,14 @@ var popboxes = new Vue({
     showCreatNewAPI: false,
     showConfirm: false,
     showAlert: false,
+    showNewPage: false,
 
     name: '',
     type: 'Page',
     title: '',
-    message: ''
+    message: '',
+
+    pageURL: ''
 
   },
   methods: {
@@ -212,7 +234,23 @@ var popboxes = new Vue({
       this.title = content;
       this.message = content;
       this.showAlert = true;
+    },
+    doAddPage: function(){
+      var item = tree.currentItem;
+
+      util.saveItem(item.model.uuid, {
+        url: this.pageURL
+      });
+
+      this.pageURL = '';
+      this.showNewPage = false;
     }
   }
 });
 
+var main = new Vue({
+  el: '.main',
+  data: {
+    selected: false
+  }
+});
