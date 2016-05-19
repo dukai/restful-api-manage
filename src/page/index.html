@@ -18,6 +18,7 @@
             <ul class="dropdown-menu" aria-labelledby="dLabel">
                 <li><a href="#" @click="showCreateProject=true">创建项目</a></li>
                 <li><a href="#">打开项目</a></li>
+                <li><a href="#" @click.prevent="deleteProject">删除项目</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">启动项目</a></li>
             </ul>
@@ -44,6 +45,36 @@
                 <button type="button" class="btn btn-primary" @click="saveProject">保存</button>
               </span>
             </modal>
+            <modal :show.sync="showDeleteProject">
+              <h3 slot="header">删除项目</h3>
+              <div slot="body">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">项目名称</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" v-model="projectName" placeholder="Project Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">项目目录</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" placeholder="Project Path" v-model="projectPath">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">&nbsp;</label>
+                    <div class="checkbox col-sm-6">
+                      <label>
+                      <input type="checkbox" v-model="checked"> <strong class="danger has-error">从磁盘删除项目,将无法恢复</strong>
+                      </label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <span slot="buttons">
+                <button type="button" class="btn btn-primary" @click="doDeleteProject">确认</button>
+              </span>
+            </modal>
         </div>
     </header>
   <div class="container-fluid">
@@ -54,7 +85,7 @@
         </div>
         <div class="row">
             <div class="col-sm-3 col-md-3 sidebar">
-                <ul class="tree" id="menu">
+                <ul class="tree" id="menu" v-show="hasData">
                     <item class="item" :model="treeData"> </item>
                 </ul>
             </div>

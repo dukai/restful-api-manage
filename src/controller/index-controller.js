@@ -3,44 +3,8 @@ var loadtp = require('lib/loadtp');
 var conf = require('lib/confrw.js');
 const dialog = require('electron').remote.dialog;
 const nodeuuid = require('node-uuid');
-
-var pref = conf.read();
-
-var util = {
-  items: {},
-  addRecent: function(project){
-    if(!pref.recent){
-      pref.recent = [];
-    }
-
-    var index = pref.recent.indexOf(JSON.stringify(project));
-    if(index >= 0){
-      pref.recent.splice(index, 1);
-    }
-
-    if(pref.recent.length == 5){
-      pref.rencent.length = 4;
-    }
-    pref.recent.unshift(JSON.stringify(project));
-    conf.save(pref);
-  },
-
-  getCurrent: function(){
-    if(!pref.recent || pref.recent.length == 0){
-      return {};
-    }else{
-      var project = JSON.parse(pref.recent[0]);
-      project.menu = project.path + require('path').sep + 'menu.json';
-      project.items = project.path + require('path').sep + 'items.json';
-      return project;
-    }
-  },
-
-  saveItems: function(item){
-    this.items[item.uuid] = item;
-    conf.save(this.items, this.getCurrent().items);
-  }
-};
+const sep = require('path').sep;
+const util = require('../lib/util');
 
 
 var Vue = require('vue');
@@ -54,7 +18,7 @@ Vue.component('modal', {
       twoWay: true    
     }
   }
-})
+});
 
 var projectInfo = new Vue({
   el: '.project-info',
@@ -62,14 +26,20 @@ var projectInfo = new Vue({
     isload: false,
     projectPath: '',
     projectName: ''
+  },
+  methods: {
+    loadConfig: function(){
+      if(typeof util.getCurrent().name){
+        this.projectName = util.getCurrent().name;
+        this.projectPath = util.getCurrent().path;
+        this.isload = true;
+      }
+    }
   }
 });
 
-if(typeof util.getCurrent().name){
-  projectInfo.projectName = util.getCurrent().name;
-  projectInfo.projectPath = util.getCurrent().path;
-  projectInfo.isload = true;
-}
+
+projectInfo.loadConfig();
 
 require('./tree');
 
@@ -81,9 +51,12 @@ var project = new Vue({
   data: {
     showCreateProject: false,
     showOpenProject: false,
+    showDeleteProject: false,
 
     projectName: '',
-    projectPath: ''
+    projectPath: '',
+
+    checked: false
   },
   methods: {
     saveProject: function(){
@@ -105,7 +78,7 @@ var project = new Vue({
       util.addRecent(data);
       this.showCreateProject = false;
 
-      conf.save({name: data.name, uuid: nodeuuid.v1()}, data.path + require('path').sep + 'menu.json');
+      conf.save({name: data.name, uuid: nodeuuid.v1(), type: 'Root'}, data.path + require('path').sep + 'menu.json');
 
       this.openCurrentProject(data);
       
@@ -121,6 +94,27 @@ var project = new Vue({
         return;
       }
       this.projectPath = pp;
+    },
+    deleteProject: function(){
+      this.checked = false;
+      this.projectName = util.getCurrent().name;
+      this.projectPath = util.getCurrent().path;
+      this.showDeleteProject = true;
+    },
+    doDeleteProject: function(){
+      if(this.checked){
+        //delete project physically
+        conf.remove(util.getCurrent().project);
+        conf.remove(util.getCurrent().menu);
+        conf.remove(util.getCurrent().items);
+      }
+      //delete project bookmark
+      var pref = conf.read();
+      pref.recent.shift();
+
+      conf.save(pref);
+      this.showDeleteProject = false;
+      this.openCurrentProject(util.getCurrent());
     }
   }
 });
@@ -131,6 +125,12 @@ var tree = new Vue({
   data: {
     treeData: conf.read(util.getCurrent().menu),
     currentItem: null
+  },
+
+  computed: {
+    hasData: function(){
+      return 'string' ==  typeof this.treeData.name
+    }
   },
   events: {
     addChild: function(item){
@@ -150,6 +150,10 @@ var tree = new Vue({
     },
     removeChild: function(item){
       var self = this;
+      if(!!item.model.children && item.model.children.length > 0){
+        popboxes.alert('存在子项，无法删除');
+        return;
+      }
       popboxes.title = "确认删除吗？";
       popboxes.message = "删除后无法恢复，点击确认继续删除！";
       popboxes.confirm(function(){
@@ -211,3 +215,4 @@ var popboxes = new Vue({
     }
   }
 });
+
