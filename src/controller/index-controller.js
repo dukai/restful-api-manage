@@ -79,7 +79,11 @@ var project = new Vue({
       util.addRecent(data);
       this.showCreateProject = false;
 
-      conf.save({name: data.name, uuid: nodeuuid.v1(), type: 'Root'}, data.path + require('path').sep + 'menu.json');
+      var rootItem = {name: data.name, uuid: nodeuuid.v1(), type: 'Root'};
+
+      conf.save(rootItem, data.path + sep + 'menu.json');
+
+      util.saveItems(rootItem);
 
       this.openCurrentProject(data);
       
@@ -166,12 +170,11 @@ var tree = new Vue({
       let selectedItem = util.getItem(this.currentItem.model.uuid);
       switch(selectedItem.type){
         case "Page":
-          if(undefined == typeof selectedItem.detail){
+          if("undefined" == typeof selectedItem.detail){
             this.addPage();
           }else{
             main.showPageDetail = true;
             main.pageDetail = selectedItem;
-            console.log(selectedItem);
           }
           break;
       }
@@ -250,9 +253,12 @@ var popboxes = new Vue({
     doAddPage: function(){
       var item = tree.currentItem;
 
-      util.saveItem(item.model.uuid, {
+      util.saveItemDetail(item.model.uuid, {
         url: this.pageURL
       });
+
+      main.pageDetail = util.getItem(item.model.uuid);
+      main.showPageDetail = true;
 
       this.pageURL = '';
       this.showNewPage = false;

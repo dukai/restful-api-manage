@@ -34,15 +34,16 @@ var util = {
   },
 
   saveItems: function(item){
-    this.items[item.uuid] = item;
-    conf.save(this.items, this.getCurrent().items);
+    var list = conf.read(this.getCurrent().items);
+    list[item.uuid] = item;
+    conf.save(list, this.getCurrent().items);
   },
 
   getItem: function(uuid){
     return conf.read(this.getCurrent().items)[uuid];
   },
 
-  saveItem: function(uuid, data){
+  saveItemDetail: function(uuid, data){
     var list = conf.read(this.getCurrent().items);
     list[uuid].detail = data;
     conf.save(list, this.getCurrent().items);
