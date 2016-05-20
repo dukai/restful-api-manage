@@ -195,6 +195,9 @@ header.page nav {
     background: rgba(0, 102, 204, 0.1);
     border-radius: 3px;
   }
+  .sidebar ul.tree ul:hover {
+    background: rgba(0, 102, 204, 0.2);
+  }
   .sidebar ul.tree li {
     margin-bottom: 1px;
   }
@@ -220,7 +223,7 @@ header.page nav {
   .sidebar ul.tree li > a:focus {
     text-decoration: none;
   }
-  .sidebar ul.tree li > a i {
+  .sidebar ul.tree li > a > i {
     display: inline-block;
     *display: inline;
     zoom: 1;
@@ -228,7 +231,7 @@ header.page nav {
     font-size: 12px;
     cursor: pointer;
   }
-  .sidebar ul.tree li > a i:hover {
+  .sidebar ul.tree li > a > i:hover {
     color: #fff;
     text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.6);
   }
@@ -243,15 +246,17 @@ header.page nav {
     display: inline-block;
     *display: inline;
     zoom: 1;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     text-align: center;
     border-radius: 3px;
-    font-size: 18px;
-  }
-  .sidebar ul.tree li > a span.operate span:hover {
+    font-size: 12px;
+    line-height: 20px;
     background: rgba(255, 255, 255, 0.5);
     color: #06c;
+  }
+  .sidebar ul.tree li > a span.operate span:hover {
+    background: rgba(255, 255, 255, 0.9);
   }
   .sidebar ul.tree li > a span.operate span.del:hover {
     color: #900;
@@ -295,6 +300,15 @@ header.page nav {
     font-size: 16px;
     line-height: 1.2;
     padding: 10px 0;
+  }
+  .welcome {
+    height: 100%;
+    background: url(../images/big-bear.png) center center no-repeat;
+    line-height: 36px;
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+    top: 30px;
   }
 }
 strong {

@@ -66,6 +66,9 @@ header.page{
       ul{
         background:rgba(0, 102, 204, .1);
         border-radius:3px;
+        &:hover{
+          background:rgba(0, 102, 204, .2);
+        }
       }
       li{
         .mb(1px);
@@ -87,7 +90,7 @@ header.page{
           .mb(1px);
           .d-b;
           background: rgba(255,255, 255,.4);
-          i{
+          >i{
             .d-ib;
             .pr(4px);
             font-size:12px;
@@ -106,13 +109,15 @@ header.page{
             top: 6px;
             span{
               .d-ib;
-              .rect(24px);
+              .rect(20px);
               text-align: center;
               border-radius:3px;
-              font-size:18px;
+              font-size:12px;
+              line-height: 20px;
+              background:rgba(255,255,255, .5);
+              color:#06c;
               &:hover{
-                background:rgba(255,255,255, .5);
-                color:#06c;
+                background:rgba(255,255,255, .9);
               }
 
 
@@ -174,6 +179,16 @@ header.page{
       line-height:1.2;
       padding: 10px 0;
     }
+  }
+
+  .welcome{
+    height:100%;
+    background:url(../images/big-bear.png) center center no-repeat;
+    line-height: 36px;
+    font-size:18px;
+    text-align: center;
+    .rel;
+    top: 30px;
   }
 }
 strong{

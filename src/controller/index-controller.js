@@ -7,19 +7,9 @@ const sep = require('path').sep;
 const util = require('../lib/util');
 
 require('../comp/page-detail');
+require('../comp/modal.js');
 
 var Vue = require('vue');
-
-Vue.component('modal', {
-  template: loadtp('modal'),
-  props: {
-    show: {
-      type: Boolean,
-      required: true,
-      twoWay: true    
-    }
-  }
-});
 
 var projectInfo = new Vue({
   el: '.project-info',
@@ -42,7 +32,7 @@ var projectInfo = new Vue({
 
 projectInfo.loadConfig();
 
-require('./tree');
+require('../comp/tree');
 
 
 //prject context menu
@@ -143,6 +133,13 @@ var tree = new Vue({
     addPage: function(){
       popboxes.title = '添加页面详情';
       popboxes.showNewPage = true;
+    },
+
+    editPage: function(item){
+      popboxes.pageURL = item.detail.url;
+      popboxes.pageTemplate = item.detail.template;
+      popboxes.title = '编辑' + item.name +  '页面详情';
+      popboxes.showNewPage = true;
     }
   },
   events: {
@@ -197,8 +194,20 @@ var tree = new Vue({
       });
     },
 
-
-
+    editItem: function(item){
+      var ci = util.getItem(item.model.uuid);
+      switch(ci.type){
+        case "Page":
+          this.editPage(ci);
+          break;
+      }
+    },
+    moveUp: function(){
+      conf.save(this.treeData, util.getCurrent().menu);
+    },
+    moveDown: function(){
+      conf.save(this.treeData, util.getCurrent().menu);
+    }
   }
 })
 var popboxes = new Vue({
@@ -208,13 +217,17 @@ var popboxes = new Vue({
     showConfirm: false,
     showAlert: false,
     showNewPage: false,
+    showNewAPI: false,
 
     name: '',
     type: 'Page',
     title: '',
     message: '',
 
-    pageURL: ''
+    pageURL: '',
+    pageTemplate: '',
+
+
 
   },
   methods: {
@@ -225,7 +238,7 @@ var popboxes = new Vue({
 
     saveAPI: function(){
       var uuid = nodeuuid.v1();
-      this.currentItem.addChild({name: this.name, uuid: uuid});
+      this.currentItem.addChild({name: this.name, uuid: uuid, type: this.type});
       this.currentItem = null;
       this.showCreatNewAPI = false;
       util.saveItems({
@@ -254,7 +267,8 @@ var popboxes = new Vue({
       var item = tree.currentItem;
 
       util.saveItemDetail(item.model.uuid, {
-        url: this.pageURL
+        url: this.pageURL,
+        template: this.pageTemplate
       });
 
       main.pageDetail = util.getItem(item.model.uuid);

@@ -1,6 +1,9 @@
 <div v-show="show" class="container-fluid">
   <div class="row ttl">
-    <div class="col-sm-6"><strong>{{detail.name}}</strong></div>
+    <div class="col-sm-6">
+      <i class="text-info glyphicon glyphicon-list-alt"></i>
+      <strong>{{detail.name}}</strong>
+    </div>
     <div class="col-sm-6">
       <span class="label label-primary">GET</span> <code>{{detail.detail.url}}</code> </div>
   </div>
@@ -8,6 +11,12 @@
     <div class="col-sm-12">
       <h2>URL</h2>
       <pre>{{detail.detail.url}}</pre>
+    </div>
+  </div>
+  <div class="row ttl">
+    <div class="col-sm-12">
+      <h2>页面模板</h2>
+      <pre>{{detail.detail.template}}</pre>
     </div>
   </div>
 </div>

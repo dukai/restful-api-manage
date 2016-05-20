@@ -7,7 +7,9 @@ const loadtp = require('lib/loadtp');
 Vue.component('item', {
   template: loadtp('tree-item'),
   props: {
-    model: Object
+    model: Object,
+    index: -1,
+    total: 0
   },
   data: function () {
     return {
@@ -72,7 +74,36 @@ Vue.component('item', {
     },
     _removeChild: function(){
       this.$dispatch('removeChild', this);
+    },
+    _editItem: function(){
+      this.$dispatch('editItem', this);
+    },
+
+    _moveUp: function(){
+
+      let index = this.index;
+      let prev = this.$parent.model.children[index - 1];
+
+      this.$parent.model.children.$set(index - 1, this.model);
+
+      this.$parent.model.children.$set(index, prev);
+
+
+      this.$dispatch('moveUp', this);
+
+    },
+
+    _moveDown: function(){
+      let index = this.index;
+      let next = this.$parent.model.children[index + 1];
+
+      this.$parent.model.children.$set(index + 1, this.model);
+
+      this.$parent.model.children.$set(index, next);
+
+      this.$dispatch('moveDown', this);
     }
+
   },
   events: {
   }
