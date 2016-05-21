@@ -141,7 +141,7 @@ module.exports = function(grunt) {
                 }
             },
             html: {
-                files: ['<%= config.webroot %>/page/**/*.html','<%= config.webroot %>/controller/**/*.js', '<%= config.webroot %>/view/**/*.tp'],
+                files: ['<%= config.webroot %>/page/**/*.html','<%= config.webroot %>/**/*.js', '<%= config.webroot %>/view/**/*.tp'],
                 options: {
                     nospawn: true
                 }
