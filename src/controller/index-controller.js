@@ -1,15 +1,57 @@
 require('amd-loader');
-var loadtp = require('lib/loadtp');
-var conf = require('lib/confrw.js');
+const loadtp = require('lib/loadtp');
+const conf = require('lib/confrw.js');
 const dialog = require('electron').remote.dialog;
 const nodeuuid = require('node-uuid');
 const sep = require('path').sep;
 const util = require('../lib/util');
-
-require('../comp/page-detail');
+const ITEM_TYPE = require('../comp/item-type');
+require('../comp/tree');
 require('../comp/modal.js');
 
+var PageDetail = require('../comp/page-detail');
+
 var Vue = require('vue');
+var VueRouter = require('vue-router');
+Vue.use(VueRouter);
+var router = new VueRouter();
+
+var App = Vue.extend({
+  events: {
+    //页面信息发生修改时触发
+    editItem: function(item){
+      tree.currentItem.model.name = item.name;
+    }
+  }
+});
+
+router.map({
+  '/new-page/:uuid': {
+    component: require('../comp/new-page')
+  },
+
+  '/page-detail/:uuid': {
+    component: PageDetail
+  },
+  '/new-api/:uuid': {
+    component: require('../comp/new-api')
+  },
+  '/api-detail/:uuid': {
+    component: require('../comp/new-api')
+  },
+//
+//  'new-group': {
+//    component: NewGroup
+//  },
+  '/welcome': {
+    component: require('../comp/welcome')
+  }
+});
+
+router.start(App, '#app')
+
+router.go({path: '/welcome'});
+router.go({path: '/new-api/4ef1af60-1eb3-11e6-8e9d-afd602ba95f5'});
 
 var projectInfo = new Vue({
   el: '.project-info',
@@ -29,11 +71,7 @@ var projectInfo = new Vue({
   }
 });
 
-
 projectInfo.loadConfig();
-
-require('../comp/tree');
-
 
 //prject context menu
 
@@ -168,10 +206,17 @@ var tree = new Vue({
       switch(selectedItem.type){
         case "Page":
           if("undefined" == typeof selectedItem.detail){
-            this.addPage();
+            //this.addPage();
+            router.go({path: '/new-page/' + selectedItem.uuid});
           }else{
-            main.showPageDetail = true;
-            main.pageDetail = selectedItem;
+            router.go({path: '/page-detail/' + selectedItem.uuid});
+          }
+          break;
+        case ITEM_TYPE.API:
+          if("undefined" == typeof selectedItem.detail){
+            router.go({path: '/new-api/' + selectedItem.uuid});
+          }else{
+            router.go({path: '/api-detail/' + selectedItem.uuid});
           }
           break;
       }
@@ -195,10 +240,14 @@ var tree = new Vue({
     },
 
     editItem: function(item){
-      var ci = util.getItem(item.model.uuid);
+      var ci = item.model;
+      this.currentItem && (this.currentItem.selected = false);
+      item.selected = true;
+      this.currentItem = item;
       switch(ci.type){
         case "Page":
-          this.editPage(ci);
+          console.log('edit it');
+          router.go({path: '/new-page/' + item.model.uuid});
           break;
       }
     },
@@ -227,12 +276,11 @@ var popboxes = new Vue({
     pageURL: '',
     pageTemplate: '',
 
-
-
   },
   methods: {
     create: function(item){
       this.currentItem = item;
+      this.type = 'Page';
       this.showCreatNewAPI = true;
     },
 

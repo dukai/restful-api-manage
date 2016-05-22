@@ -89,11 +89,8 @@
                     <item class="item" :model="treeData"> </item>
                 </ul>
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
-              <div class="welcome" v-show="!selected">
-                <h1>Welcome to LazyBear, select an item to view the detail. </h1>
-              </div>
-              <page-detail :show.sync="showPageDetail" :detail="pageDetail"></page-detail>
+            <div id="app" class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+              <router-view></router-view>
             </div>
         </div>
     </div>
@@ -191,6 +188,7 @@
       </modal>
     </div>
       
+    <script src="../../bower-lib/ace-builds/src-noconflict/ace.js"></script>
     <script>
         window.jQuery = $ = require('../../bower-lib/jquery/dist/jquery');
         require('../controller/index-controller');

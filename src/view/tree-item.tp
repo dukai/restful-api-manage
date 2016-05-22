@@ -1,18 +1,19 @@
 <li :class="{active: open}">
   <a 
     :class="{bold: isFolder, active: open, selected: selected}"
-    @click="_select" >
+    @click="_toggleSelect" >
     <i 
       v-if="isFolder" 
       @click.stop="toggle"
       class="glyphicon {{open ? 'glyphicon-minus' : 'glyphicon-plus'}}">
       </i>
-      {{model.name}}<!-- - {{index}} - {{total}} -->
+      <em>{{model.name}}<!-- - {{index}} - {{total}} --></em>
+      <tree-item-type :type="model.type"></tree-item-type>
 
     <span class="operate">
       <span v-show="index > 0" class="glyphicon glyphicon-arrow-up" @click.stop="_moveUp"></span>
       <span v-show="index < total-1"class="glyphicon glyphicon-arrow-down" @click.stop="_moveDown"></span>
-      <span class="glyphicon glyphicon-pencil" @click="_editItem"></span>
+      <span class="glyphicon glyphicon-pencil" @click.stop="_editItem"></span>
       <span class="del glyphicon glyphicon-trash" @click.stop="_removeChild"></span>
       <span @click.stop="_addChild" class="glyphicon glyphicon-plus-sign"></span>
     </span>

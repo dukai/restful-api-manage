@@ -1,4 +1,4 @@
-<div v-show="show" class="container-fluid">
+<div class="container-fluid">
   <div class="row ttl">
     <div class="col-sm-6">
       <i class="text-info glyphicon glyphicon-list-alt"></i>

@@ -1,0 +1,4 @@
+<i class="glyphicon glyphicon-home" v-if="type==itemTypes.ROOT"></i>
+<i class="glyphicon glyphicon-file" v-if="type==itemTypes.PAGE"></i>
+<i class="glyphicon glyphicon-folder-open" v-if="type==itemTypes.GROUP"></i>
+<i class="glyphicon glyphicon-list-alt" v-if="type==itemTypes.API"></i>

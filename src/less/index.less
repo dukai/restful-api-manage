@@ -90,6 +90,9 @@ header.page{
           .mb(1px);
           .d-b;
           background: rgba(255,255, 255,.4);
+          >em{
+            .pointer;
+          }
           >i{
             .d-ib;
             .pr(4px);
@@ -114,10 +117,10 @@ header.page{
               border-radius:3px;
               font-size:12px;
               line-height: 20px;
-              background:rgba(255,255,255, .5);
+              background:rgba(255,255,255, .7);
               color:#06c;
               &:hover{
-                background:rgba(255,255,255, .9);
+                background:rgba(255,255,255, .95);
               }
 
 
@@ -146,8 +149,12 @@ header.page{
           }
 
           &.selected{
-            background:#06c;
+            background:#df8d17;
             color:#fff;
+            span{
+              color:#df8d17 !important;
+            }
+
           }
         }
       }

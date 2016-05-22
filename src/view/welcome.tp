@@ -1,0 +1,3 @@
+<div class="welcome" v-show="!selected">
+  <h1>Welcome to LazyBear, select an item to view the detail. </h1>
+</div>

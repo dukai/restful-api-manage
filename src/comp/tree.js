@@ -1,11 +1,26 @@
 // demo data
 const Vue = require('vue');
 const loadtp = require('lib/loadtp');
+const ITEM_TYPE = require('./item-type');
 
+var ItemType = Vue.extend({
+  template: loadtp('tree-item-type'),
+  props: {
+    type: ITEM_TYPE.PAGE
+  },
 
+  data: function(){
+    return {
+      itemTypes: ITEM_TYPE
+    }
+  }
+});
 // define the item component
 Vue.component('item', {
   template: loadtp('tree-item'),
+  components: {
+    'tree-item-type': ItemType
+  },
   props: {
     model: Object,
     index: -1,
@@ -32,6 +47,10 @@ Vue.component('item', {
   },
   methods: {
     _select: function(){
+      this.selected = true;
+      this.$dispatch('selected', this);
+    },
+    _toggleSelect: function(){
       this.selected = !this.selected;
       this.$dispatch('selected', this);
     },
@@ -67,7 +86,8 @@ Vue.component('item', {
     addChild: function(item){
       this.model.children.push({
         name: item.name,
-        uuid: item.uuid
+        uuid: item.uuid,
+        type: item.type
       });
 
       this.$dispatch('addSuccess');
