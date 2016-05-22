@@ -1,6 +1,6 @@
 module.exports = {
-  Root: 'Root',
-  Page: 'Page',
-  Group: 'Group',
+  ROOT: 'Root',
+  PAGE: 'Page',
+  GROUP: 'Group',
   API: 'API'
 };
