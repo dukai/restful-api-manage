@@ -16,7 +16,7 @@ module.exports = Vue.extend({
         {name: '', required: true, type: 'String', desc: '', eg: ''}
       ],
       responseParams: [
-        {name: '', type: 'String', desc: '', eg: ''}
+        //{name: '', type: 'String', desc: '', eg: ''}
       ],
 
       uuid: '',
