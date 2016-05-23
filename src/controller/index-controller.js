@@ -50,8 +50,8 @@ router.map({
 
 router.start(App, '#app')
 
-router.go({path: '/welcome'});
-router.go({path: '/new-api/4ef1af60-1eb3-11e6-8e9d-afd602ba95f5'});
+//router.go({path: '/welcome'});
+router.go({path: '/new-api/d3406dd0-20a0-11e6-888e-bdfb20240a98'});
 
 var projectInfo = new Vue({
   el: '.project-info',

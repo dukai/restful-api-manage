@@ -70,22 +70,21 @@
           <div><button type="button" class="btn btn-success btn-sm" @click="_addResponseParam">添加</button></div>
           <table class="table table-striped">
             <thead>
-              <tr><th>参数</th><th>必选</th><th>类型</th><th>说明</th><th>示例</th></tr>
+              <tr><th>参数</th><th>类型</th><th>说明</th><th>示例</th></tr>
             </thead>
             <tbody>
             <tr v-for="param in responseParams">
               <td><input type="text" v-model="param.name"></td>
-              <td><input type="checkbox" :model="param.required">
               </td>
               <td>
-                <select :model="param.type">
-                  <option>String</option>
+                <select v-model="param.type">
+                  <option>string</option>
                   <option>DateTime</option>
-                  <option>Int</option>
+                  <option>number</option>
                 </select>
               </td>
-              <td><input type="text" :model="param.desc"></td>
-              <td><input type="text" :model="param.eg"></td>
+              <td><input type="text" v-model="param.desc"></td>
+              <td><input type="text" v-model="param.eg"></td>
             </tr>
             </tbody>
           </table>
