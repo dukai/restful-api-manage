@@ -4,6 +4,7 @@ node_modules/vue
 node_modules/node*
 node_modules/.bin
 node_modules/vue*
+node_modules/dtools
 npm-debug.log
 *.swp
 test/lib/*
