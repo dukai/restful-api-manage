@@ -102,18 +102,22 @@ module.exports = Vue.extend({
     _editStop: function(){
       try{
         var data = JSON.parse(this.code);
-        let each = (data) => {
+        let each = (data, namespace = "") => {
           for(let key in data){
             let item = data[key];
-            if(tools.isPlainObject(item)){
-              return each(item);
-            }else{
+            if(!this._checkInResponseParams(namespace + key)){
               this._addResponseParam({
-                name: key, 
+                name: namespace + key, 
                 type: typeof item, 
                 desc: 'desc', 
                 eg: 'eg'
               });
+            }
+            if(item instanceof Array && item.length > 0){
+              item = item[0];
+            }
+            if(tools.isPlainObject(item)){
+              return each(item, namespace + key + ".");
             }
           }
         };
@@ -121,6 +125,14 @@ module.exports = Vue.extend({
         each(data);
         //this.responseParams.push({name: '', required: true, type: 'String', desc: '', eg: ''})
       }catch(ex){}
+    },
+    _checkInResponseParams: function(key){
+      for(let {name} of this.responseParams){
+        if(name == key){
+          return true;
+        }
+      }
+      return false;
     }
   }
 });
