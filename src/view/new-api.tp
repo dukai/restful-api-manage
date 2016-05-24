@@ -81,6 +81,8 @@
                   <option>string</option>
                   <option>DateTime</option>
                   <option>number</option>
+                  <option>object</option>
+                  <option>array</option>
                 </select>
               </td>
               <td><input type="text" v-model="param.desc"></td>
