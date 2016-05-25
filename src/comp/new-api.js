@@ -2,6 +2,7 @@ const Vue = require('vue');
 const loadtp = require('lib/loadtp');
 const util = require('../lib/util');
 const tools = require('dtools');
+const detector = require('../lib/type-detector');
 
 module.exports = Vue.extend({
   template: loadtp('new-api'),
@@ -12,16 +13,20 @@ module.exports = Vue.extend({
       pageURL: '',
       pageTemplate: '',
       pageTitle: '',
+      apiMethod: 'GET',
       requestParams: [
         {name: '', required: true, type: 'String', desc: '', eg: ''}
       ],
       responseParams: [
         //{name: '', type: 'String', desc: '', eg: ''}
       ],
+      errorResponseParams: [],
 
       uuid: '',
       editor: null,
-      code: '{}'
+      code: '{}',
+      errorCode: '{}',
+      typeList: detector.TYPE_LIST
     }
   },
 
@@ -37,6 +42,18 @@ module.exports = Vue.extend({
     this.editor.on('blur', () => {
       console.log(this);
       this._editStop();
+    });
+
+    $('#error_editor').html(this.errorCode);
+    this.errorEditor = ace.edit('error_editor');
+    this.errorEditor.setTheme("ace/theme/twilight");
+    this.errorEditor.session.setMode("ace/mode/javascript");
+    this.errorEditor.on('change', () => {
+      this.errorCode = this.errorEditor.getValue();
+    });
+
+    this.errorEditor.on('blur', () => {
+      this._editStop('error');
     });
   },
 
@@ -72,46 +89,61 @@ module.exports = Vue.extend({
   methods: {
     _save: function(){
       console.log(this.responseParams);
-      return;
+      var detail = {
+        url: this.pageURL,
+        method: this.apiMethod,
+        requestParams: this.requestParams,
+        successResponseParams: this.responseParams,
+        errorResponseParams: this.errorResponseParams
+      }
       if(this.pageTitle == ''){
-        util.saveItemDetail(this.$route.params.uuid, {
-          url: this.pageURL,
-          template: this.pageTemplate
-        });
+        util.saveItemDetail(this.$route.params.uuid, detail);
       }else{
         var item = util.getItem(this.uuid);
         item.name = this.pageTitle;
-        item.detail = {
-          url: this.pageURL,
-          template: this.pageTemplate
-        };
+        item.detail = detail;
         util.saveItems(item);
         this.$dispatch('editItem', item);
       }
 
-      this.$router.go({path: '/page-detail/' + this.$route.params.uuid});
+      this.$router.go({path: '/api-detail/' + this.$route.params.uuid});
 
     },
     _addRequestParam: function(){
       this.requestParams.push({name: '', required: true, type: 'String', desc: '', eg: ''});
     },
-    _addResponseParam: function(data){
-      console.log(data);
-      this.responseParams.push(data);
+    _addResponseParam: function(data, type){
+      if(!data){
+        data = {name: '', type: 'String', desc: '', eg: ''};
+      }
+      if(type == 'error'){
+        this.errorResponseParams.push(data);
+      }else{
+        this.responseParams.push(data);
+      }
     },
-    _editStop: function(){
+    _addErrorResponseParam: function(data, type){
+      this._addResponseParam(data, type);
+    },
+    _editStop: function(type = 'success'){
+      let codeStr = '';
+      if(type == 'error'){
+        codeStr = this.errorCode;
+      }else{
+        codeStr = this.code;
+      }
       try{
-        var data = JSON.parse(this.code);
+        var data = JSON.parse(codeStr);
         let each = (data, namespace = "") => {
           for(let key in data){
             let item = data[key];
-            if(!this._checkInResponseParams(namespace + key)){
+            if(!this._checkInResponseParams(namespace + key, type)){
               this._addResponseParam({
                 name: namespace + key, 
-                type: typeof item, 
-                desc: 'desc', 
-                eg: 'eg'
-              });
+                type: detector.detect(item), 
+                desc: '', 
+                eg: JSON.stringify(item)
+              }, type);
             }
             if(item instanceof Array && item.length > 0){
               item = item[0];
@@ -124,10 +156,19 @@ module.exports = Vue.extend({
 
         each(data);
         //this.responseParams.push({name: '', required: true, type: 'String', desc: '', eg: ''})
-      }catch(ex){}
+      }catch(ex){
+        console.log(ex);
+      }
     },
-    _checkInResponseParams: function(key){
-      for(let {name} of this.responseParams){
+    _checkInResponseParams: function(key, type = 'success'){
+
+      let params = this.responseParams;
+
+      if(type == 'error'){
+        params =  this.errorResponseParams;
+      }
+
+      for(let {name} of params){
         if(name == key){
           return true;
         }

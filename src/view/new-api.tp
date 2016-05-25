@@ -41,13 +41,11 @@
             <tbody>
             <tr v-for="param in requestParams">
               <td><input type="text" v-model="param.name"></td>
-              <td><input type="checkbox" :model="param.required">
+              <td><input type="checkbox" v-model="param.required">
               </td>
               <td>
                 <select v-model="param.type">
-                  <option>String</option>
-                  <option>DateTime</option>
-                  <option>Int</option>
+                  <option v-for="opt in typeList">{{opt}}</option>
                 </select>
               </td>
               <td><input type="text" v-model="param.desc"></td>
@@ -58,14 +56,14 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">返回值</label>
+        <label class="col-sm-2 control-label">成功返回值</label>
         <div class="col-sm-6">
           <pre id="editor" style="width:100%;height:300px;"></pre>
           <textarea style="display:none;">{{code}}</textarea>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">返回参数</label>
+        <label class="col-sm-2 control-label">成功返回参数</label>
         <div class="col-sm-10">
           <div><button type="button" class="btn btn-success btn-sm" @click="_addResponseParam">添加</button></div>
           <table class="table table-striped">
@@ -78,11 +76,38 @@
               </td>
               <td>
                 <select v-model="param.type">
-                  <option>string</option>
-                  <option>DateTime</option>
-                  <option>number</option>
-                  <option>object</option>
-                  <option>array</option>
+                  <option v-for="opt in typeList">{{opt}}</option>
+                </select>
+              </td>
+              <td><input type="text" v-model="param.desc"></td>
+              <td><input type="text" v-model="param.eg"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">失败返回值</label>
+        <div class="col-sm-6">
+          <pre id="error_editor" style="width:100%;height:300px;"></pre>
+          <textarea style="display:none;">{{errorCode}}</textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">失败返回参数</label>
+        <div class="col-sm-10">
+          <div><button type="button" class="btn btn-success btn-sm" @click="_addErrorResponseParam">添加</button></div>
+          <table class="table table-striped">
+            <thead>
+              <tr><th>参数</th><th>类型</th><th>说明</th><th>示例</th></tr>
+            </thead>
+            <tbody>
+            <tr v-for="param in errorResponseParams">
+              <td><input type="text" v-model="param.name"></td>
+              </td>
+              <td>
+                <select v-model="param.type">
+                  <option v-for="opt in typeList">{{opt}}</option>
                 </select>
               </td>
               <td><input type="text" v-model="param.desc"></td>
