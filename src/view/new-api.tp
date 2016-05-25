@@ -73,7 +73,6 @@
             <tbody>
             <tr v-for="param in responseParams">
               <td><input type="text" v-model="param.name"></td>
-              </td>
               <td>
                 <select v-model="param.type">
                   <option v-for="opt in typeList">{{opt}}</option>

@@ -94,7 +94,9 @@ module.exports = Vue.extend({
         method: this.apiMethod,
         requestParams: this.requestParams,
         successResponseParams: this.responseParams,
-        errorResponseParams: this.errorResponseParams
+        errorResponseParams: this.errorResponseParams,
+        code: this.code,
+        errorCode: this.errorCode
       }
       if(this.pageTitle == ''){
         util.saveItemDetail(this.$route.params.uuid, detail);
