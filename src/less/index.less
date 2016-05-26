@@ -24,21 +24,26 @@ body,html{
 }
 header.page{
   background-color:#fff;
-  height:50px;
+  height:40px;
   .logo{
-    .rect(50px);
+    .rect(40px);
     background:url(../images/logo.png);
     .pull-left;
   }
   button.btn.menu{
     .rel;
-    .mt(8px);
+    .mt(4px);
     .mr(4px);
     color:#999;
   }
 
   nav{
     .pull-left;
+  }
+  .project-info{
+    .abs;
+    left: 56px;
+    top: 0px;
   }
 }
 .sidebar {
@@ -47,7 +52,7 @@ header.page{
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 80px;
+    top: 40px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -167,7 +172,7 @@ header.page{
 
     position: absolute;
     bottom: 10px;
-    top: 90px;
+    top: 50px;
     overflow:auto;
 
     .ttl{
@@ -185,7 +190,6 @@ header.page{
     }
 
     h2{
-      font-size:16px;
       line-height:1.2;
       padding: 10px 0;
     }

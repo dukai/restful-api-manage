@@ -7,6 +7,17 @@
     <div class="col-sm-6">
       <span class="label label-primary">GET</span> <code>{{detail.detail.url}}</code> </div>
   </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>{{detail.name}}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+            <span class="label label-primary">GET</span> 
+            <code>{{detail.detail.url}}</code> 
+      </div>
+    </div>
   <div class="row ttl">
     <div class="col-sm-12">
       <h2>URL</h2>

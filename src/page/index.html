@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Hello World!</title>
+    <link href="../css/reset.css" rel="stylesheet" />
     <link href="../../bower-lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="../../bower-lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="../css/index.css" rel="stylesheet" />
@@ -13,8 +14,13 @@
 <body>
     <header class="page">
         <div class="logo"></div>
+        <div class="row project-info">
+            <div class="col-sm-12 summary" v-if="isload">
+                <strong>{{projectName}}：</strong> <span>{{projectPath}}</span>
+            </div>
+        </div>
         <div class="dropdown pull-right project">
-            <button id="dLabel" class="menu btn btn-default" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="glyphicon glyphicon-th-list"></i></button>
+            <button id="dLabel" class="menu btn btn-default btn-sm" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="glyphicon glyphicon-th-list"></i></button>
             <ul class="dropdown-menu" aria-labelledby="dLabel">
                 <li><a href="#" @click="showCreateProject=true">创建项目</a></li>
                 <li><a href="#">打开项目</a></li>
@@ -78,11 +84,6 @@
         </div>
     </header>
   <div class="container-fluid">
-        <div class="row project-info">
-            <div class="col-sm-12 summary" v-if="isload">
-                <strong>{{projectName}}：</strong> <span>{{projectPath}}</span>
-            </div>
-        </div>
         <div class="row">
             <div class="col-sm-3 col-md-3 sidebar">
                 <ul class="tree" id="menu" v-show="hasData">

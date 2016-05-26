@@ -205,7 +205,7 @@ var tree = new Vue({
 
       let selectedItem = util.getItem(this.currentItem.model.uuid);
       switch(selectedItem.type){
-        case "Page":
+        case ITEM_TYPE.PAGE:
           if("undefined" == typeof selectedItem.detail){
             //this.addPage();
             router.go({path: '/new-page/' + selectedItem.uuid});
