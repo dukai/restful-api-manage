@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row ttl">
     <div class="col-sm-6">
-      <i class="text-info glyphicon glyphicon-list-alt"></i>
+      <i class="text-info glyphicon glyphicon-file"></i>
       <strong>{{detail.name}}</strong>
     </div>
     <div class="col-sm-6">

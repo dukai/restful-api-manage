@@ -43,6 +43,12 @@ router.map({
 //  'new-group': {
 //    component: NewGroup
 //  },
+  '/group-detail/:uuid': {
+    component: require('../comp/group-detail')
+  },
+  '/root-detail/:uuid': {
+    component: require('../comp/root-detail')
+  },
   '/welcome': {
     component: require('../comp/welcome')
   }
@@ -219,6 +225,12 @@ var tree = new Vue({
           }else{
             router.go({path: '/api-detail/' + selectedItem.uuid});
           }
+          break;
+        case ITEM_TYPE.GROUP:
+          router.go({path: '/group-detail/' + selectedItem.uuid});
+          break;
+        case ITEM_TYPE.ROOT:
+          router.go({path: '/root-detail/' + selectedItem.uuid});
           break;
       }
     },
