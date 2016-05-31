@@ -7,8 +7,10 @@
       @click.stop="toggle"
       class="glyphicon {{open ? 'glyphicon-minus' : 'glyphicon-plus'}}">
       </i>
-      <em>{{model.name}}<!-- - {{index}} - {{total}} --></em>
-      <tree-item-type :type="model.type"></tree-item-type>
+      <em>
+        <tree-item-type :type="model.type"></tree-item-type>
+        {{model.name}}<!-- - {{index}} - {{total}} -->
+      </em>
 
     <span class="operate">
       <span v-show="index > 0" class="glyphicon glyphicon-arrow-up" @click.stop="_moveUp"></span>
