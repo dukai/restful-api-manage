@@ -2,12 +2,17 @@
   <div class="row ttl">
     <div class="col-sm-6">
       <i class="text-info glyphicon glyphicon-home"></i>
-      <strong>{{detail.name}}</strong>
+      <strong>{{item.name}}</strong>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <h1>{{detail.name}}</h1>
+      <h1>{{item.name}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>{{item.path}}</h2>
     </div>
   </div>
 </div>

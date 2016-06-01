@@ -49,6 +49,9 @@ router.map({
   '/root-detail/:uuid': {
     component: require('../comp/root-detail')
   },
+  '/root-edit/:uuid': {
+    component: require('../comp/root-edit')
+  },
   '/welcome': {
     component: require('../comp/welcome')
   }
@@ -133,7 +136,7 @@ var project = new Vue({
       if(undefined === pp){
         return;
       }
-      this.projectPath = pp;
+      this.projectPath = pp[0];
     },
     deleteProject: function(){
       this.checked = false;
@@ -258,9 +261,17 @@ var tree = new Vue({
       item.selected = true;
       this.currentItem = item;
       switch(ci.type){
-        case "Page":
-          console.log('edit it');
+        case ITEM_TYPE.PAGE:
           router.go({path: '/new-page/' + item.model.uuid});
+          break;
+        case ITEM_TYPE.API:
+          router.go({path: '/new-api/' + item.model.uuid});
+          break;
+        case ITEM_TYPE.ROOT:
+          router.go({path: '/root-edit/' + item.model.uuid});
+          break;
+        case ITEM_TYPE.GROUP:
+          router.go({path: '/new-group/' + item.model.uuid});
           break;
       }
     },

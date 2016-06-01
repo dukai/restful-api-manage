@@ -11,8 +11,10 @@ module.exports = Vue.extend({
   },
 
   computed: {
-    detail: function(){
-      return util.getItem(this.$route.params.uuid);
+    item: function(){
+      var o = Object.assign(util.getItem(this.$route.params.uuid), util.getCurrent());
+      console.log(o);
+      return o;
     }
   },
 
