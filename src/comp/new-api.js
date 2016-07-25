@@ -144,7 +144,7 @@ module.exports = Vue.extend({
                 name: namespace + key, 
                 type: detector.detect(item), 
                 desc: '', 
-                eg: JSON.stringify(item)
+                eg: typeof item === 'object' ? JSON.stringify(item): item
               }, type);
             }
             if(item instanceof Array && item.length > 0){

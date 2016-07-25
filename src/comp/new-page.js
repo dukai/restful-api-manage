@@ -12,10 +12,27 @@ module.exports = Vue.extend({
       pageTemplate: '',
       pageTitle: '',
 
-      uuid: ''
+      uuid: '',
+
+      code: '{}',
+      editor: null
     }
   },
 
+  ready: function(){
+    $('#editor').html(this.code);
+    this.editor = ace.edit('editor');
+    this.editor.setTheme("ace/theme/twilight");
+    this.editor.session.setMode("ace/mode/javascript");
+    this.editor.on('change', () => {
+      this.code = this.editor.getValue();
+    });
+
+    this.editor.on('blur', () => {
+      this._editStop();
+    });
+
+  },
   computed: {
   },
 
@@ -56,6 +73,9 @@ module.exports = Vue.extend({
 
       this.$router.go({path: '/page-detail/' + this.$route.params.uuid});
 
+    },
+    _editStop(){
+      
     }
   }
 });
